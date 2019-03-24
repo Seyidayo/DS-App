@@ -1,3 +1,35 @@
+.store-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Landing Page */
+.store-landingpage {
+  padding-top: 60px;
+  height: 100%;
+}
+.store-landing-page-image {
+  margin-left: -120px;
+  height: 400px;
+  width: 400px;
+  background-color: lightgray;
+}
+
+.red {
+  background-color: red !important;
+}
+
+/* Text */
+.store-large-text {
+  font-size: 32px !important;
+}
+.store-large-text span {
+  font-size: 36px !important;
+}
+
+.store-medium-text {
+  font-size: 24px !important;
+}
 .App {
   text-align: center;
 }
@@ -29,5 +61,12 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .store-landing-page-image {
+    margin-left: 0;
+    align-self: center;
   }
 }

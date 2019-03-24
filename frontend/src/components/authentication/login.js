@@ -27,7 +27,7 @@ class Login extends React.Component {
   async login() {
     try {
       const { email, password, next } = this.state;
-      const status = await login({ email, password });
+      await login({ email, password });
       this.props.history.push(next);
     } catch (err) {
       this.setState({ isLoading: false, error: err });
