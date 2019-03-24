@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Form, Button, Segment, Grid, Header } from "semantic-ui-react";
 
 import { login } from "../../services/backend";
@@ -49,16 +49,7 @@ class Login extends React.Component {
     const { email, password, isLoggedIn } = this.state;
     if (isLoggedIn) return <Redirect to="/store" />;
     return (
-      <div className="login-form">
-        <style>
-          {`
-      body > div,
-      body > div > div,
-      body > div > div > div.login-form {
-        height: 100%;
-      }
-    `}
-        </style>
+      <div className="store-auth-page">
         <Grid
           container
           textAlign="center"
@@ -66,8 +57,8 @@ class Login extends React.Component {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            {/* <Header size="large">Login To Your Account</Header> */}
             <Segment>
+              <Header size="medium">Welcome!</Header>
               <Form size="large" onSubmit={this.handleSubmit} noValidate>
                 <Form.Input
                   placeholder="Email Address"
@@ -92,9 +83,12 @@ class Login extends React.Component {
                 >
                   Login
                 </Button>
-                {/* <p>{error}</p> */}
               </Form>
             </Segment>
+            <Header size="small">
+              New to us?, <br /> why dont you{" "}
+              <Link to="/register">sign up</Link> first
+            </Header>
           </Grid.Column>
         </Grid>
       </div>

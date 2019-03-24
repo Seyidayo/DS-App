@@ -12,18 +12,16 @@ import StorePage from "./views/storepage";
 // import HeaderBar from "./layouts/Header";
 
 import "semantic-ui-css/semantic.min.css";
-import './App.css'
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <div className="store-wrapper">
-          <Route exact path="/" component={LandingPage} />
-          <Route path={ROUTES.LOGIN} component={Login} />
-          <Route path={ROUTES.REGISTER} component={Register} />
-          <PrivateRoute path={ROUTES.STORE} component={StorePage} />
-        </div>
+        <Route exact path="/" component={LandingPage} />
+        <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.REGISTER} component={Register} />
+        <PrivateRoute path={ROUTES.STORE} component={StorePage} />
       </Router>
     );
   }

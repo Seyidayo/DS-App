@@ -4,9 +4,10 @@
 }
 
 /* Landing Page */
-.store-landingpage {
-  padding-top: 60px;
-  height: 100%;
+.store-landing-page {
+  padding-top: 30px;
+  min-height: 100vh;
+  background: yellow !important;
 }
 .store-landing-page-image {
   margin-left: -120px;
@@ -14,11 +15,18 @@
   width: 400px;
   background-color: lightgray;
 }
-
 .red {
-  background-color: red !important;
+  background-color: firebrick !important;
 }
 
+/* Authentication Page */
+.store-auth-page {
+  background: green !important;
+  min-height: 100vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* Text */
 .store-large-text {
   font-size: 32px !important;

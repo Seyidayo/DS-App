@@ -1,5 +1,8 @@
 import React from "react";
+import { Redirect, Link } from "react-router-dom";
 import { register } from "../../services/backend";
+import { Form, Grid, Button, Segment, Header } from "semantic-ui-react";
+import UserStorage from "../../storage";
 
 class Register extends React.Component {
   constructor() {
@@ -9,8 +12,17 @@ class Register extends React.Component {
       first_name: "",
       last_name: "",
       email: "",
-      password: ""
+      phone_number: "",
+      password: "",
+      isLoggedIn: false
     };
+  }
+
+  componentDidMount() {
+    const token = UserStorage.getToken();
+    if (token) {
+      this.setState({ isLoggedIn: true });
+    }
   }
 
   handleChange = event => {
@@ -19,12 +31,13 @@ class Register extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { first_name, last_name, email, password } = this.state;
+    const { first_name, last_name, email, phone_number, password } = this.state;
     const newUser = {
       first_name: first_name,
       last_name: last_name,
       email: email,
-      password: password
+      password: password,
+      phone_number: phone_number
     };
 
     register(newUser).then(res => {
@@ -33,51 +46,84 @@ class Register extends React.Component {
   };
 
   render() {
-    const { first_name, last_name, email, password } = this.state;
+    const {
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      password,
+      isLoggedIn
+    } = this.state;
+    if (isLoggedIn) return <Redirect to="/store" />;
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit} noValidate>
-          <h3>First Name</h3>
-          <input
-            placeholder="First Name"
-            type="text"
-            name="first_name"
-            value={first_name}
-            onChange={this.handleChange}
-          />
+      <div className="store-auth-page">
+        <Grid
+          container
+          verticalAlign="middle"
+          style={{ height: "100%" }}
+          textAlign="center"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Segment>
+              
+              <Form onSubmit={this.handleSubmit} noValidate>
+                <Form.Input
+                  placeholder="First Name"
+                  type="text"
+                  name="first_name"
+                  value={first_name}
+                  onChange={this.handleChange}
+                />
 
-          <h3>Last Name</h3>
-          <input
-            placeholder="Last Name"
-            type="text"
-            name="last_name"
-            value={last_name}
-            onChange={this.handleChange}
-          />
+                <Form.Input
+                  placeholder="Last Name"
+                  type="text"
+                  name="last_name"
+                  value={last_name}
+                  onChange={this.handleChange}
+                />
 
-          <h3>Email Address</h3>
-          <input
-            placeholder="Email Address"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
+                <Form.Input
+                  placeholder="Email Address"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
 
-          <h3>Password</h3>
-          <input
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
+                <Form.Input
+                  placeholder="Phone Number"
+                  type="tel"
+                  name="phone_number"
+                  value={phone_number}
+                  onChange={this.handleChange}
+                />
 
-          <button type="submit" onClick={this.handleSubmit}>
-            Register
-          </button>
-        </form>
-      </React.Fragment>
+                <Form.Input
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
+
+                <Button
+                  size="large"
+                  fluid
+                  type="submit"
+                  onClick={this.handleSubmit}
+                >
+                  Register
+                </Button>
+              </Form>
+            </Segment>
+            <Header size="small">
+              Already have an account, <br /> go ahead to{" "}
+              <Link to="/login">login</Link>
+            </Header>
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }

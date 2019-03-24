@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 import UserStorage from "../storage";
-import {
-  Grid,
-  Header,
-  Container,
-  Button,
-} from "semantic-ui-react";
+import { Grid, Header, Container, Button } from "semantic-ui-react";
 import * as ROUTE from "../routes";
 
 class LandingPage extends Component {
@@ -40,12 +35,18 @@ class LandingPage extends Component {
     }
     return (
       <React.Fragment>
-        <Container>
-          <div className="store-landingpage">
+        <div className="store-landing-page">
+          <Container>
             <Grid stackable>
               <Grid.Row>
-                <Grid.Column width="8" className="red" style={{paddingTop: 100}}>
-                  <Header className="store-large-text"><span>Shoe Brand</span> <br/> Shoe Name </Header>
+                <Grid.Column
+                  width="8"
+                  className="red"
+                  style={{ paddingTop: 100 }}
+                >
+                  <Header className="store-large-text">
+                    <span>Shoe Brand</span> <br /> Shoe Name{" "}
+                  </Header>
                   <Link to={ROUTE.LOGIN}>
                     <Button size="medium">Shop Now</Button>
                   </Link>
@@ -57,8 +58,8 @@ class LandingPage extends Component {
                 </Grid.Column>
               </Grid.Row>
             </Grid>
-          </div>
-        </Container>
+          </Container>
+        </div>
       </React.Fragment>
     );
   }
