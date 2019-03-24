@@ -1,5 +1,9 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
+import { Form, Button, Segment, Grid, Header } from "semantic-ui-react";
+
 import { login } from "../../services/backend";
+import UserStorage from "../../storage";
 
 class Login extends React.Component {
   constructor() {
@@ -10,8 +14,15 @@ class Login extends React.Component {
       password: "",
       next: "/store",
       isLoading: false,
+      isLoggedIn: false,
       error: ""
     };
+  }
+  componentDidMount() {
+    const token = UserStorage.getToken();
+    if (token) {
+      this.setState({ isLoggedIn: true });
+    }
   }
 
   handleChange = event => {
@@ -35,36 +46,58 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
-
+    const { email, password, isLoggedIn } = this.state;
+    if (isLoggedIn) return <Redirect to="/store" />;
     return (
-      <React.Fragment>
-        <form onSubmit={this.handleSubmit} noValidate>
-          <h3>Email Address</h3>
-          <input
-            placeholder="Email Address"
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
+      <div className="login-form">
+        <style>
+          {`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}
+        </style>
+        <Grid
+          container
+          textAlign="center"
+          style={{ height: "100%" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            {/* <Header size="large">Login To Your Account</Header> */}
+            <Segment>
+              <Form size="large" onSubmit={this.handleSubmit} noValidate>
+                <Form.Input
+                  placeholder="Email Address"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={this.handleChange}
+                />
+                <Form.Input
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={this.handleChange}
+                />
 
-          <h3>Password</h3>
-          <input
-            placeholder="Password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.handleChange}
-          />
-
-          {/* <p>{error}</p> */}
-
-          <button type="submit" onClick={this.handleSubmit}>
-            Login
-          </button>
-        </form>
-      </React.Fragment>
+                <Button
+                  size="large"
+                  type="submit"
+                  onClick={this.handleSubmit}
+                  fluid
+                >
+                  Login
+                </Button>
+                {/* <p>{error}</p> */}
+              </Form>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </div>
     );
   }
 }
